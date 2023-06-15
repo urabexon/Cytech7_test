@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('index','App\Http\Controllers\ProductController@index')->name('index');
+Route::get('create','App\Http\Controllers\ProductController@create');
+Route::get('/show/{id}','App\Http\Controllers\ProductController@show')->name('index.show');
+Route::get('/edit/{id}','App\Http\Controllers\ProductController@edit')->name('index.edit');
+Route::post('store','App\Http\Controllers\ProductController@store')->name('index.store');
+Route::post('/update/{id}','App\Http\Controllers\ProductController@update')->name('index.update');
+Route::post('/destroy/{id}','App\Http\Controllers\ProductController@destroy')->name('index.destroy');

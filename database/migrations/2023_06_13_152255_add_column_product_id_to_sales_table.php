@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class AddColumnProductIdToSalesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sales', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
+        Schema::table('sales', function (Blueprint $table) {
+            $table->unsignedBigInteger('product_id')->after('id');
         });
     }
 
@@ -26,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sales');
+        Schema::table('posts', function (Blueprint $table) {
+            $table->dropcolumn('product_id');
+        });
     }
 };
